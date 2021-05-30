@@ -1,9 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="clearfix mb-2">
-    <a href="{{ url('/discussion/create') }}" class="btn btn-primary float-right">Add Discussion</a>
-</div>
 <div class="card">
     <div class="card-header">{{ __('Dashboard') }}</div>
 

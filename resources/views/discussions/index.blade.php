@@ -5,10 +5,11 @@
     @foreach ($discussions as $discussion)
         
     <div class="card">
-        <div class="card-header">{{ $discussion->title }}</div>
+        
+        @include('partials.discussion-header')
 
-        <div class="card-body">
-            {!! $discussion->content !!}
+        <div class="card-body text-center">
+            <strong>{{ $discussion->title }}</strong>
         </div>
     </div>
 

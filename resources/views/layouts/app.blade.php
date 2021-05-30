@@ -78,33 +78,41 @@
 
         <main class="py-4">
 
-            @auth
-
-            <div class="container">
-
                 @if (session()->has('success'))
-                    <div class="alert alert-success">
-                        {{ session()->get('success') }}    
-                    </div>                
+                    <div class="container">
+                        <div class="alert alert-success">
+                            {{ session()->get('success') }}    
+                        </div>                
+                    </div>
                 @endif
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <ul class="list-group">
-                            @foreach ($channels as $channel)
-                                <li class="list-group-item">{{ $channel->name }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    <div class="col-md-8">
-                        @yield('content')
+                @if (!in_array(Request::path(), ['login', 'register', 'password/confirm', 'password/email', 'password/reset']))
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            @auth
+                                <div class="my-2">
+                                    <a href="{{ url('/discussions/create') }}" class="btn btn-primary w-100">Add Discussion</a>
+                                </div>
+                            @else
+                                <div class="my-2">
+                                    <a href="{{ url('/login') }}" class="btn btn-primary w-100">Sign in to add Discussion</a>
+                                </div>
+                            @endauth
+                            <ul class="list-group">
+                                @foreach ($channels as $channel)
+                                    <li class="list-group-item">{{ $channel->name }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        <div class="col-md-8">
+                            @yield('content')
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            @else
-                @yield('content')
-            @endauth
+                @else
+                    @yield('content')
+                @endif
 
         </main>
     </div>

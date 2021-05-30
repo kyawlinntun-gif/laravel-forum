@@ -5,7 +5,7 @@
     <div class="card-header">Add Discussion</div>
 
     <div class="card-body">
-        <form action="{{ url('/discussion') }}" method="POST">
+        <form action="{{ url('/discussions') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="title">Title</label>

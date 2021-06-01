@@ -22,6 +22,7 @@ class CreateDiscussionsTable extends Migration
             $table->foreign('channel_id')->references('id')->on('channels');
             $table->unsignedBigInteger('user_id')->index();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('reply_id')->nullable();
             $table->timestamps();
         });
     }

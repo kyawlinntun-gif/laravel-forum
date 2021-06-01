@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Reply;
 use App\Discussion;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Http\Requests\CreateDiscussionRequest;
 use Illuminate\Contracts\Session\Session;
+use App\Http\Requests\CreateDiscussionRequest;
 
 class DiscussionController extends Controller
 {
@@ -97,5 +98,19 @@ class DiscussionController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Mark as best reply for Discussion.
+     *
+     * @return void
+     */
+    public function bestReply(Discussion $discussion, Reply $reply)
+    {
+        $discussion->markAsBestReply($reply);
+
+        session()->flash('success', 'Mark as best reply.');
+
+        return redirect()->back();
     }
 }

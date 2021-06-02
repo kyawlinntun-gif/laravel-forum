@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,5 @@ Route::resource('discussions', 'DiscussionController');
 Route::resource('discussions/{discussion}/replies', 'ReplyController');
 
 Route::post('/discussions/{discussion}/replies/{reply}/mark-as-best-reply', 'DiscussionController@bestReply');
+
+Route::get('/user/notifications', [UsersController::class, 'notifications']);

@@ -15,22 +15,24 @@
             {!! $discussion->content !!}
         </div>
 
-        <div class="card text-white bg-success mt-5">
-            <div class="card-header">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <img src="{{ Gravatar::src($discussion->bestReply->owner->email) }}" alt="{{ $discussion->bestReply->owner->email }}" style="width: 40px; height: 40px; border-radius: 50%;">
-                        <span class="ml-2">{{ $discussion->bestReply->owner->name }}</span>
-                    </div>
-                    <div>
-                        BEST REPLY
+        @if ($discussion->bestReply)
+            <div class="card text-white bg-success mt-5">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <img src="{{ Gravatar::src($discussion->bestReply->owner->email) }}" alt="{{ $discussion->bestReply->owner->email }}" style="width: 40px; height: 40px; border-radius: 50%;">
+                            <span class="ml-2">{{ $discussion->bestReply->owner->name }}</span>
+                        </div>
+                        <div>
+                            BEST REPLY
+                        </div>
                     </div>
                 </div>
+                <div class="card-body">
+                    {!! $discussion->bestReply->content !!}
+                </div>
             </div>
-            <div class="card-body">
-                {!! $discussion->bestReply->content !!}
-            </div>
-          </div>
+        @endif
 
     </div>
 

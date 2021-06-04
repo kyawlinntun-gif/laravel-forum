@@ -38,8 +38,11 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @auth
-                        <li class="nav-item">
+                        <li class="nav-item d-flex align-items-center">
                             <a href="{{ url('/user/notifications') }}" class="nav-link badge badge-info">{{ auth()->user()->unreadNotifications()->count() }}</a>
+                        </li>
+                        <li class="nav-item ml-2">
+                            <a href="{{ url('/discussions') }}" class="nav-link">Discussions</a>
                         </li>
                         @endauth
                     </ul>
@@ -105,7 +108,7 @@
                             @endauth
                             <ul class="list-group">
                                 @foreach ($channels as $channel)
-                                    <li class="list-group-item">{{ $channel->name }}</li>
+                                    <li class="list-group-item"><a href="{{ url('/discussions?channel=' . $channel->slug) }}" class="text-decoration-none text-dark">{{ $channel->name }}</a></li>
                                 @endforeach
                             </ul>
                         </div>

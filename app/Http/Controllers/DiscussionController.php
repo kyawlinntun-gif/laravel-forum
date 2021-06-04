@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Session\Session;
 use App\Http\Requests\CreateDiscussionRequest;
+use App\Notifications\ReplyMarkedAsBestReply;
 
 class DiscussionController extends Controller
 {
@@ -19,7 +20,7 @@ class DiscussionController extends Controller
     public function index()
     {
         return view('discussions.index', [
-            'discussions' => Discussion::paginate(5)
+            'discussions' => Discussion::filterByChannel()->paginate(5)
         ]);
     }
 
@@ -108,6 +109,10 @@ class DiscussionController extends Controller
     public function bestReply(Discussion $discussion, Reply $reply)
     {
         $discussion->markAsBestReply($reply);
+
+        if (auth()->id() !== $discussion->author->id) {
+            $discussion->author->notify(new ReplyMarkedAsBestReply($discussion));
+        }
 
         session()->flash('success', 'Mark as best reply.');
 

@@ -33,4 +33,19 @@ class Discussion extends Model
     {
         return $this->belongsTo(Reply::class, 'reply_id');
     }
+
+    public function scopeFilterByChannel($query)
+    {
+        if (request()->query('channel')) {
+            $channel = Channel::where('slug', request()->query('channel'))->first();
+
+            if ($channel) {
+                return $query->where('channel_id', $channel->id);
+            }
+
+            return $query;
+        }
+
+        return $query;
+    }
 }

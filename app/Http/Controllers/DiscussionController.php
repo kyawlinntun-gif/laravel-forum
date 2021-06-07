@@ -12,6 +12,17 @@ use App\Notifications\ReplyMarkedAsBestReply;
 
 class DiscussionController extends Controller
 {
+
+    /**
+     * Middleware for create and store
+     *
+     * @author Name <email@email.com>
+     */
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified'])->only(['create', 'store']);
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -4,11 +4,12 @@ namespace App;
 
 use App\Reply;
 use App\Discussion;
+use App\Notifications\VerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -47,5 +48,10 @@ class User extends Authenticatable
     public function replies()
     {
         return $this->hasMany(Reply::class);
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        return $this->notify(new VerifyEmail());
     }
 }
